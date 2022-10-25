@@ -6,12 +6,17 @@ python3
     1、下载安装python3、pycharm、nodejs
 
     2、pip安装
-        pip install -r requirements.txt
-        pip install pypinyin //拼音
-        pip install openpyxl // word处理
-        pip install pypiwin32 //windows 专用模块
-        pip install requests // 网络请求
-        pip install pyinstaller // 打包
+        pip install -r requirements.txt //都写到这里面
+
+[//]: # (        pip install pypinyin //拼音)
+
+[//]: # (        pip install openpyxl // word处理)
+
+[//]: # (        pip install pypiwin32 //windows 专用模块)
+
+[//]: # (        pip install requests // 网络请求)
+
+[//]: # (        pip install pyinstaller // 打包)
 
     3、目录解析
         ├── src 代码
