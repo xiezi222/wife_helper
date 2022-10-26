@@ -3,9 +3,9 @@
 
 import os
 import os.path
+import importlib
 from tkinter import Frame, Button, Label, Entry, filedialog
 from tkinter.ttk import Separator, Combobox
-
 
 class HomeView(Frame):
     def __init__(self, master=None):
@@ -52,7 +52,7 @@ class HomeView(Frame):
         script_directory = self.get_script_directory()
         script_names = []
         for file_name in os.listdir(script_directory):
-            if file_name.endswith("py"):
+            if file_name.endswith("py") and not file_name.startswith("__init__"):
                 script_names.append(file_name)
         return script_names
 
@@ -76,10 +76,14 @@ class HomeView(Frame):
         input_file = self.input_file.get()
         input_directory = self.input_directory.get()
         input_path = input_directory if len(input_directory) > 0 else input_file
-        script_path = os.path.join(self.get_script_directory(), self.input_script.get())
         output_path = self.output_directory.get()
 
-        os.system(f"python {script_path} {input_path} {output_path}")
+        module_name = str(self.input_script.get()).split('.')[0]
+        module_path = "src.scripts." + module_name
 
+        module = importlib.import_module(module_path)
+        cls = getattr(module, "Script")
+        obj = cls()
+        obj.run()
 
 

@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import tkinter
-from .views.home_view import HomeView
+from src.views.home_view import HomeView
 
 
 class App:
