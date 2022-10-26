@@ -17,12 +17,12 @@ class App:
 
     def setup_window(self, window):
         window.title("爱妻小助手")
-        width = 800
-        height = 600
+        width = 600
+        height = 400
         left = int((window.winfo_screenwidth() - width) / 2)
         top = int((window.winfo_screenheight() - height) / 2)
         window.geometry(f"{width}x{height}+{left}+{top}")
         # window.config(bg="green")
 
     def create_main_view(self, window):
-        HomeView(window)
+        HomeView(window).config(bg="pink")

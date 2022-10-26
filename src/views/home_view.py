@@ -14,39 +14,38 @@ class HomeView(Frame):
         Frame.__init__(self, master)
         self.root = master
 
-        self.config(bg="gray")
         self.pack(fill="both", expand=True)
 
-        self.input_file = Entry(self, bg="red")
-        self.input_directory = Entry(self, bg="blue")
-        self.input_script = Combobox(self, values=self.get_script_list())
-        self.output_directory = Entry(self, bg="yellow")
+        self.input_file = Entry(self)
+        self.input_directory = Entry(self)
+        self.input_script = Combobox(self, values=self.get_script_list(), background="white")
+        self.output_directory = Entry(self)
         self.add_subviews()
 
     def add_subviews(self):
         self.columnconfigure(0, weight=3)
         self.columnconfigure(1, weight=1)
 
-        Label(self, text="选择源文件").grid(row=0, column=0, padx=10, pady="10 0", sticky='w')
+        Label(self, text="选择源文件", bg="pink").grid(row=0, column=0, padx=10, pady="10 0", sticky='w')
         self.input_file.grid(row=1, column=0, sticky='ew', padx="10 0")
         Button(self, text="选择", command=self.get_input_file).grid(row=1, column=1, sticky='w', padx="10 0")
 
-        Label(self, text="选择源文件夹").grid(row=2, column=0, padx=10, pady="10 0", sticky='w')
+        Label(self, text="选择源文件夹", bg="pink").grid(row=2, column=0, padx=10, pady="10 0", sticky='w')
         self.input_directory.grid(row=3, column=0, sticky='ew', padx="10 0")
         Button(self, text="选择", command=self.get_input_directory).grid(row=3, column=1, sticky='w', padx="10 0")
         Separator(self, orient='horizontal').grid(row=4, column=0, columnspan=2, sticky='ew', pady="10 20")
 
-        Label(self, text="选择脚本").grid(row=5, column=0, padx=10, pady="10 0", sticky='w')
+        Label(self, text="选择脚本", bg="pink").grid(row=5, column=0, padx=10, pady="10 0", sticky='w')
         self.input_script.grid(row=6, column=0, sticky='ew', padx="10 0")
         Button(self, text="刷新", command=self.update_script_list).grid(row=6, column=1, sticky='w', padx="10 0")
         Separator(self, orient='horizontal').grid(row=7, column=0, columnspan=2, sticky='ew', pady="10 20")
 
-        Label(self, text="选择输出目录").grid(row=8, column=0,  padx=10, pady="10 0", sticky='w')
+        Label(self, text="选择输出目录", bg="pink").grid(row=8, column=0,  padx=10, pady="10 0", sticky='w')
         self.output_directory.grid(row=9, column=0, sticky='ew', padx="10 0")
         Button(self, text="选择", command=self.get_output_directory).grid(row=9, column=1, sticky='w', padx="10 0")
         Separator(self, orient='horizontal').grid(row=10, column=0, columnspan=2, sticky='ew', pady="10 20")
 
-        Button(self, text="执行", command=self.executive).grid(row=11, column=0, columnspan=2)
+        Button(self, text="执行", command=self.executive, width=50).grid(row=11, column=0, columnspan=2)
 
     def get_script_directory(self):
         current_path = os.path.dirname(__file__)
