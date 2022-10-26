@@ -2,30 +2,31 @@
 # -*- coding: UTF-8 -*-
 
 import os
-from base_script import BaseScript
-# from win32com.client import constants, gencache
+from src.tools.utils import *
+from win32com.client import constants, gencache
 
-class WordToPDF(BaseScript):
 
-    def __init__(self, word_path):
-        self.word_path = word_path
+class Script():
 
-        # 获取文件路径
-        filepath = os.path.abspath(word_path)
-        index = filepath.rindex('.')
-        # 通过截取获取pdfpath
-        self.out_path = filepath[:index] + '.pdf'
+    def __init__(self, input_path, output_directory):
 
-    def remove_old_out_file(self):
-        if os.path.exists(self.out_path):
-            print("删除之前的输出文件")
-            os.remove(self.out_path)
+        self.input_path = input_path
+        self.output_directory = output_directory
 
     def executive(self):
-        self.remove_old_out_file()
 
-        # word = gencache.EnsureDispatch('Word.Application')
-        # doc = word.Documents.Open(self.word_path, ReadOnly=1)
-        # # 转换方法
-        # doc.ExportAsFixedFormat(self.out_path, constants.wdExportFormatPDF)
-        # word.Quit()
+        name = os.path.split(self.input_path)[1]
+        if len(name) <= 0:
+            alert("输入路径不对："+self.input_path)
+
+        output_path = os.path.join(self.output_directory, name+".PDF")
+        if os.path.exists(output_path):
+            os.remove(output_path)
+
+        word = gencache.EnsureDispatch('Word.Application')
+        word.Visible = False
+        doc = word.Documents.Open(self.input_path, ReadOnly=1)
+        # 转换方法
+        doc.ExportAsFixedFormat(self.output_path, constants.wdExportFormatPDF)
+        word.Quit()
+        alert("完成")

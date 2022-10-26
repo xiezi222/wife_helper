@@ -16,5 +16,3 @@ class BaseScript:
         print("任务执行完毕, 共耗时:", int(delta / 60), "分", delta % 60, "秒")
 
 
-def log_error(msg):
-    print("\033[0;37;41m警告:" + msg + "\033[0m")
