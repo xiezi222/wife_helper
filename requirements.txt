@@ -1,6 +1,6 @@
 pypinyin    #拼音
 openpyxl    #word处理
 xlwings     #word处理
-#pypiwin32   #windows 专用模块
+pypiwin32   #windows 专用模块
 requests    #网络请求
 pyinstaller #打包
