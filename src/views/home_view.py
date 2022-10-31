@@ -8,6 +8,7 @@ from tkinter import Frame, Button, Label, Entry, filedialog
 from tkinter.ttk import Separator, Combobox
 
 from src.tools.checkup import CheckUp
+from src.tools.utils import *
 
 class HomeView(Frame):
     def __init__(self, master=None):
@@ -92,9 +93,21 @@ class HomeView(Frame):
         module_name = str(self.input_script.get()).split('.')[0]
         module_path = "src.scripts." + module_name
 
+        if len(input_path) <= 0:
+            alert("没选输入文件/文件夹")
+            return
+        elif len(output_path) <= 0:
+            alert("没选输出目录")
+            return
+        elif len(module_name) <= 0:
+            alert("没选脚本")
+            return
+
+
+
         module = importlib.import_module(module_path)
         cls = getattr(module, "Script")
         obj = cls()
-        obj.run()
+        obj.run(input_path, output_path)
 
 

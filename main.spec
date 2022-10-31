@@ -3,9 +3,9 @@
 
 block_cipher = None
 
-ROOT_DIR = 'c:\\***\\***\\'
+ROOT_DIR = 'd:\DevTools\wife_helper\'
 
-a = Analysis(['main.py', ROOT_DIR+'src/app.py', ROOT_DIR+'src/views/home_view.py'],
+a = Analysis(['main.py'],
              pathex=[],
              binaries=[],
              datas=[(ROOT_DIR+'src', 'src')],
