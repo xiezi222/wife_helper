@@ -6,9 +6,28 @@ from src.tools.utils import *
 from win32com.client import constants, gencache
 
 
-class Script():
+class Script:
 
-    def run(self, input_path, output_directory):
+    def __init__(self):
+        self.word = self.create_word_app('Word.Application')
+        if self.word is None:
+            log_error("检查office软件是否正确安装")
+            self.word = self.create_word_app('wps.Application')
+            if self.word is None:
+                log_error("检查wps软件是否正确安装")
+
+    def create_word_app(self, identifier):
+        application = None
+        try:
+            application = gencache.EnsureDispatch(identifier)
+        except Exception as e:
+            print(str(e))
+        return application
+
+    def run(self, input_path, input_directory, output_directory):
+        if self.word is None:
+            alert("检查word软件是否正确安装")
+            return
 
         name = os.path.split(input_path)[1]
         name = name.split('.')[0]
@@ -18,13 +37,11 @@ class Script():
         output_path = os.path.join(output_directory, name + ".PDF")
         if os.path.exists(output_path):
             os.remove(output_path)
-
-        word = gencache.EnsureDispatch('Word.Application')
-        word.Visible = False
-        doc = word.Documents.Open(input_path, ReadOnly=1)
+        self.word.Visible = False
+        doc = self.word.Documents.Open(input_path, ReadOnly=1)
         # 转换方法
         doc.ExportAsFixedFormat(output_path, constants.wdExportFormatPDF)
-        word.Quit()
+        self.word.Quit()
         alert("完成")
 
 

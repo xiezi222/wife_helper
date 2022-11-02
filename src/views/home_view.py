@@ -10,6 +10,7 @@ from tkinter.ttk import Separator, Combobox
 from src.tools.checkup import CheckUp
 from src.tools.utils import *
 
+
 class HomeView(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -41,7 +42,7 @@ class HomeView(Frame):
         Button(self, text="刷新", command=self.update_script_list).grid(row=6, column=1, sticky='w', padx="10 0")
         Separator(self, orient='horizontal').grid(row=7, column=0, columnspan=2, sticky='ew', pady="10 20")
 
-        Label(self, text="选择输出目录", bg="pink").grid(row=8, column=0,  padx=10, pady="10 0", sticky='w')
+        Label(self, text="选择输出目录", bg="pink").grid(row=8, column=0, padx=10, pady="10 0", sticky='w')
         self.output_directory.grid(row=9, column=0, sticky='ew', padx="10 0")
         Button(self, text="选择", command=self.get_output_directory).grid(row=9, column=1, sticky='w', padx="10 0")
         Separator(self, orient='horizontal').grid(row=10, column=0, columnspan=2, sticky='ew', pady="10 20")
@@ -85,15 +86,14 @@ class HomeView(Frame):
 
     def executive(self):
         print("executive")
-        input_file = self.input_file.get()
+        input_path = self.input_file.get()
         input_directory = self.input_directory.get()
-        input_path = input_directory if len(input_directory) > 0 else input_file
         output_path = self.output_directory.get()
 
         module_name = str(self.input_script.get()).split('.')[0]
         module_path = "src.scripts." + module_name
 
-        if len(input_path) <= 0:
+        if len(input_path) <= 0 and len(input_directory) <= 0:
             alert("没选输入文件/文件夹")
             return
         elif len(output_path) <= 0:
@@ -103,11 +103,7 @@ class HomeView(Frame):
             alert("没选脚本")
             return
 
-
-
         module = importlib.import_module(module_path)
         cls = getattr(module, "Script")
         obj = cls()
-        obj.run(input_path, output_path)
-
-
+        obj.run(input_path, input_directory, output_path)
