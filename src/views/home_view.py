@@ -4,15 +4,18 @@
 import os
 import os.path
 import importlib
+
 from tkinter import Frame, Button, Label, Entry, filedialog
 from tkinter.ttk import Separator, Combobox
 
 from src.tools.checkup import CheckUp
 from src.tools.utils import *
+from src.views.console import Console
 
 
 class HomeView(Frame):
     def __init__(self, master=None):
+
         Frame.__init__(self, master)
         self.root = master
 
@@ -21,6 +24,7 @@ class HomeView(Frame):
         self.input_file = Entry(self)
         self.input_directory = Entry(self)
         self.input_script = Combobox(self, values=self.get_script_list(), background="white")
+        self.console_view = Console(self)
         self.output_directory = Entry(self)
         self.add_subviews()
 
@@ -47,7 +51,9 @@ class HomeView(Frame):
         Button(self, text="选择", command=self.get_output_directory).grid(row=9, column=1, sticky='w', padx="10 0")
         Separator(self, orient='horizontal').grid(row=10, column=0, columnspan=2, sticky='ew', pady="10 20")
 
-        Button(self, text="执行", command=self.executive, width=50).grid(row=11, column=0, columnspan=2)
+        self.console_view.config(height=50)
+        self.console_view.grid(row=11, column=0, columnspan=2, ipadx=10, ipady=10, sticky='nsew')
+        Button(self, text="执行", command=self.executive, width=50).grid(row=12, column=0, columnspan=2)
 
     def get_script_directory(self):
         current_path = os.path.dirname(__file__)
@@ -64,7 +70,7 @@ class HomeView(Frame):
     def update_script_list(self):
         self.root.configure(cursor="watch")
         self.root.update_idletasks()
-        CheckUp().check();
+        CheckUp().check()
         self.root.configure(cursor="arrow")
         self.input_script['values'] = self.get_script_list()
         print(self.get_script_list())

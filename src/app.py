@@ -31,7 +31,7 @@ class App:
         except Exception as e:
             print("window.icon load error:" + str(e))
         width = 600
-        height = 400
+        height = 600
         left = int((self.window.winfo_screenwidth() - width) / 2)
         top = int((self.window.winfo_screenheight() - height) / 2)
         self.window.geometry(f"{width}x{height}+{left}+{top}")
