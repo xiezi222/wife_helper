@@ -51,9 +51,9 @@ class HomeView(Frame):
         Button(self, text="选择", command=self.get_output_directory).grid(row=9, column=1, sticky='w', padx="10 0")
         Separator(self, orient='horizontal').grid(row=10, column=0, columnspan=2, sticky='ew', pady="10 20")
 
-        self.console_view.config(height=50)
+        self.console_view.config(height=100)
         self.console_view.grid(row=11, column=0, columnspan=2, ipadx=10, ipady=10, sticky='nsew')
-        Button(self, text="执行", command=self.executive, width=50).grid(row=12, column=0, columnspan=2)
+        Button(self, text="执行", command=self.executive, width=50).grid(row=12, column=0, columnspan=2, pady="50 0")
 
     def get_script_directory(self):
         current_path = os.path.dirname(__file__)
@@ -91,7 +91,7 @@ class HomeView(Frame):
         self.output_directory.insert(0, path)
 
     def executive(self):
-        print("executive")
+        print("开始执行...")
         input_path = self.input_file.get()
         input_directory = self.input_directory.get()
         output_path = self.output_directory.get()
@@ -109,7 +109,12 @@ class HomeView(Frame):
             alert("没选脚本")
             return
 
+        self.root.configure(cursor="watch")
+        self.root.update_idletasks()
         module = importlib.import_module(module_path)
         cls = getattr(module, "Script")
         obj = cls()
         obj.run(input_path, input_directory, output_path)
+        self.root.configure(cursor="arrow")
+        self.root.update_idletasks()
+        print("执行完成")

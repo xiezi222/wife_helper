@@ -4,7 +4,7 @@
 block_cipher = None
 
 exe_name = "爱妻助手2.0"
-proj_path = "D:\\GitHub\\wife_helper\\"
+proj_path = "C:\\Users\\xing\\Desktop\\wife_helper\\"
 icon_path =  proj_path+"src\\assets\\logo\logo.ico"
 
 datas = [('src\\assets\\logo\\*', 'src\\assets\\logo\\'),
@@ -45,7 +45,7 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
